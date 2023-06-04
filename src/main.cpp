@@ -1,18 +1,19 @@
 #include <Arduino.h>
 
-// put function declarations here:
-int myFunction(int, int);
+#include "application/KeyboardReader.h"
+#include "infra/midi/MidiConfig.h"
+using namespace keyboard_reader;
+using namespace rtc_midi_config;
 
-void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+
+
+void setup()
+{
+  Serial.begin(115200);
+  initMidi();
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-}
-
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+void loop()
+{
+  readKeys();
 }
