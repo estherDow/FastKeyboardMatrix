@@ -17,13 +17,18 @@ namespace keyboard_reader
 
         case PRESSED:
             sendNoteOn(note, 100, channel);
+            Serial.println(note);
+            Serial.println(channel);
             break;
         case HOLD:
             sendNoteOn(note, 60, channel);
-
+            Serial.println(note);
+            Serial.println(channel);
             break;
         case RELEASED:
             sendNoteOff(note, 0, channel);
+            Serial.println(note);
+            Serial.println(channel);
             break;
         case IDLE:
             break;

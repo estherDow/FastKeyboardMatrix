@@ -12,8 +12,8 @@ namespace keyboard_config
         {'6', '7', '8', '9', 'A', 'B'},
         {'C', 'D', 'E', 'F', 'G', 'H'},
         {'I', 'J', 'K', 'L', 'M', 'N'}};
-    byte rowPins[ROWS] = {13, 14, 15, 16};
-    byte colPins[COLS] = {17, 18, 19, 21, 22, 23};
+    byte rowPins[ROWS] = {21, 20, 19, 18};
+    byte colPins[COLS] = {9, 8, 10, 16, 14, 15};
 
     Keypad kpd = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS);
 }

@@ -2,7 +2,7 @@
 #define MIDICLIENT_H
 #include <infra/midi/MidiConfig.h>
 
-using namespace rtc_midi_config;
+using namespace midi_config;
 
 namespace midi_client
 {
