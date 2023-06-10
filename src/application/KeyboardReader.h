@@ -21,7 +21,7 @@ namespace keyboard_reader
             Serial.println(channel);
             break;
         case HOLD:
-            sendNoteOn(note, 60, channel);
+            sendAftertouch(note, 60, channel);
             Serial.println(note);
             Serial.println(channel);
             break;

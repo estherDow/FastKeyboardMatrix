@@ -10,6 +10,10 @@ namespace midi_client
         MIDI.sendNoteOn(note, velocity, channel);
     }
 
+    void sendAftertouch(byte note, byte pressure, byte channel) {
+        MIDI.sendAfterTouch(note, pressure, channel);
+    }
+
     void sendNoteOff(byte note, byte velocity, byte channel) {
         MIDI.sendNoteOff(note, velocity, channel);
     }
