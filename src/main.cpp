@@ -11,6 +11,7 @@ using namespace midi_config;
 void setup()
 {
   Serial.begin(9600);
+  initPins();
   initMidi();
 }
 

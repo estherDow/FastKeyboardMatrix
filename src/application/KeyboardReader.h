@@ -2,58 +2,54 @@
 #define KEYBOARDREADER_H
 #include <MIDI.h>
 #include <infra/keyboard/KeyboardConfig.h>
-#include <application/KeyMapper.h>
+#include <infra/keyboard/KeyboardDriver.h>
 #include <infra/midi/MidiClient.h>
+#include <application/Key.h>
 using namespace keyboard_config;
-using namespace key_mapper;
 using namespace midi_client;
+using namespace key;
+using namespace keyboard_driver;
 
 namespace keyboard_reader
 {
-    void sendMessageByState(KeyState kstate, int note, int channel)
+    void sendMessageByState(KeyData keyData)
     {
-        switch (kstate)
+        switch (keyData.state)
         {
 
-        case PRESSED:
-            sendNoteOn(note, 100, channel);
-            Serial.println(note);
-            Serial.println(channel);
+        case PRESS:
+            sendNoteOn(keyData.note, keyData.velocity, keyData.channel);
+            Serial.println("ROESS");
             break;
         case HOLD:
-            sendAftertouch(note, 60, channel);
-            Serial.println(note);
-            Serial.println(channel);
+            sendAftertouch(keyData.note, keyData.velocity, keyData.channel);
+            Serial.println("HOLD");
+
             break;
-        case RELEASED:
-            sendNoteOff(note, 0, channel);
-            Serial.println(note);
-            Serial.println(channel);
+        case RELEASE:
+            sendNoteOff(keyData.note, keyData.velocity, keyData.channel);
+            Serial.println("RELEASEww");
+
             break;
         case IDLE:
             break;
         }
     }
 
-    void parseKeys()
-    {
-        for (int i = 0; i < LIST_MAX; i++)
-        {
-            if (kpd.key[i].stateChanged)
-            {
-                KeyState kstate = kpd.key[i].kstate;
-                int channel = mapKeyToChannel(kpd.key[i].kchar);
-                int note = mapKeyToNote(kpd.key[i].kchar);
-                sendMessageByState(kstate, note, channel);
-            }
-        }
-    }
-
     void readKeys()
     {
-        if (kpd.getKeys())
+        for (int i = 0; i < 24; i++)
         {
-            parseKeys();
+            byte signal = readChannel(i);
+            Serial.println(signal);
+            if (signal > 50)
+            {
+                sendMessageByState(keys[i].press(signal));
+            }
+            else
+            {
+                sendMessageByState(keys[i].release());
+            }
         }
     }
 }
